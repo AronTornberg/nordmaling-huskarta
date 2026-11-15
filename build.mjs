@@ -9,6 +9,7 @@
 //
 // Environment variables (all optional, used by the deploy workflow):
 //   PREVIEW=1     build the preview (staging) variant: banner, no service worker, noindex
+//   UNPUBLISHED_CHANGES   true/false: whether the preview differs from the live map (for the banner)
 //   IMAGE_CACHE   folder for resized images, kept between builds
 //   COMMIT        git commit being built, written to version.json
 
@@ -162,6 +163,8 @@ async function build() {
     title,
     about: sanitize(settings.about),
     preview: PREVIEW,
+    // true or false when the deploy workflow says so, null when built locally.
+    unpublishedChanges: { true: true, false: false }[process.env.UNPUBLISHED_CHANGES] ?? null,
     places,
   };
   await writeFile(path.join(OUT, 'data.json'), JSON.stringify(data));

@@ -1,0 +1,19 @@
+# Dependabot opens a pull request when a newer version of something we depend on is
+# released, so outdated GitHub Actions and packages are noticed without anyone checking.
+# Once a month, with all updates of one kind gathered in a single pull request.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      packages:
+        patterns: ["*"]

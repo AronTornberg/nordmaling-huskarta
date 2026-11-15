@@ -103,8 +103,12 @@ try {
 document.title = data.title;
 document.getElementById('title').textContent = data.title;
 if (data.preview) {
+  // Tells editors where they are, and whether there is anything left to publish.
+  const banner = document.getElementById('preview-banner');
+  if (data.unpublishedChanges === true) banner.textContent = 'Förhandsvisning · har opublicerade ändringar';
+  if (data.unpublishedChanges === false) banner.textContent = 'Förhandsvisning · allt är publicerat';
+  banner.hidden = false;
   document.body.classList.add('preview');
-  document.getElementById('preview-banner').hidden = false;
 }
 
 // ---------- Map ----------

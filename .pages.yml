@@ -11,8 +11,9 @@ media:
   rename: safe
   categories: [image]
 
-# "Publicera" button in the CMS sidebar. Editors' changes first show up in the
-# preview (…/preview/); this button copies them to the real map.
+# Saving in the CMS updates the preview (…/preview/) after a minute or two.
+# This "Publicera" button in the CMS sidebar then makes the preview the real map.
+# The address in the message below must be changed if the site moves.
 actions:
   - name: publish
     label: Publicera
@@ -21,7 +22,10 @@ actions:
     cancelable: false
     confirm:
       title: Publicera ändringarna?
-      message: Allt som syns i förhandsvisningen blir synligt på den riktiga kartan inom ett par minuter.
+      message: >-
+        Den riktiga kartan blir likadan som förhandsvisningen. Det tar ett par minuter.
+        Titta gärna först på förhandsvisningen:
+        https://arontornberg.github.io/nordmaling-huskarta/preview/
       button: Publicera
 
 content:

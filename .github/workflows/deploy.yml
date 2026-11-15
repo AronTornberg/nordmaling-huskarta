@@ -5,12 +5,14 @@
 #
 # - A push to main (e.g. someone saves in Pages CMS) rebuilds the preview only.
 #   The live map is rebuilt from the commit it was already on.
-# - Running the workflow manually – the "Publicera" button in Pages CMS does
-#   exactly that – makes the latest commit on main live.
+# - Running the workflow manually ("Run workflow" in GitHub, or the "Publicera"
+#   button in Pages CMS, which does exactly that) makes the latest commit on main live.
 #
 # Which commit is live is read from version.json on the deployed site, so no
 # extra branch or stored state is needed.
 name: Deploy
+# Shown in the list of runs, so it is clear at a glance what each run did.
+run-name: ${{ github.event_name == 'workflow_dispatch' && 'Publish to live' || 'Update preview' }}
 
 on:
   push:
@@ -41,13 +43,13 @@ jobs:
       IMAGE_CACHE: ${{ github.workspace }}/.cache/img
     steps:
       - name: Check out main (the preview)
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: main
           path: preview
 
       - id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Decide which commit should be live
         id: live
@@ -65,22 +67,26 @@ jobs:
               *)   echo "Could not read the live version (HTTP $code)"; exit 1 ;;
             esac
           fi
-          echo "sha=${sha:-$main}" >> "$GITHUB_OUTPUT"
+          sha=${sha:-$main}
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "main=$main" >> "$GITHUB_OUTPUT"
+          # Does the preview contain anything that is not live? Shown in the preview's banner.
+          if [ "$sha" = "$main" ]; then echo "unpublished=false"; else echo "unpublished=true"; fi >> "$GITHUB_OUTPUT"
 
       - name: Check out the live commit
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: ${{ steps.live.outputs.sha }}
           path: live
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
           cache-dependency-path: preview/package-lock.json
 
       # Resized images are kept between runs so only new images need processing.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: .cache/img
           key: images-${{ github.run_id }}
@@ -96,13 +102,36 @@ jobs:
         working-directory: preview
         env:
           PREVIEW: 1
+          UNPUBLISHED_CHANGES: ${{ steps.live.outputs.unpublished }}
         run: npm ci && npm run build
 
       - run: mv preview/_site live/_site/preview
 
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: live/_site
 
       - id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+      # A short report on the run's page: what was done and where to look at it.
+      - name: Summary
+        env:
+          URL: ${{ steps.deploy.outputs.page_url }}
+          LIVE: ${{ steps.live.outputs.sha }}
+          MAIN: ${{ steps.live.outputs.main }}
+          UNPUBLISHED: ${{ steps.live.outputs.unpublished }}
+        run: |
+          {
+            if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+              echo "### Published to live"
+            else
+              echo "### Preview updated – the live map is unchanged"
+            fi
+            echo "- Live map: $URL (commit ${LIVE:0:7})"
+            echo "- Preview: ${URL}preview/ (commit ${MAIN:0:7})"
+            if [ "$UNPUBLISHED" = true ]; then
+              echo
+              echo "The preview has changes that are not live. To publish them, press **Publicera** in Pages CMS, or **Run workflow** on this workflow's page. (Re-running an old run does not publish.)"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

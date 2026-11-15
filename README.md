@@ -33,9 +33,19 @@ without a reload prompt.
 
 ## Deployment
 
-Every push to `main` is deployed to `/preview/`. The live map only changes when
-the deploy workflow is run manually, which is what the **Publicera** button in
-Pages CMS does.
+There are two versions of the map, and one workflow (**Deploy**) that updates them:
+
+| | Address | Updated when |
+|---|---|---|
+| Preview | `/preview/` | something is pushed to `main`, e.g. an editor saves in Pages CMS |
+| Live | `/` | someone publishes |
+
+To publish, press **Publicera** in Pages CMS, or open the **Deploy** workflow under
+Actions and press **Run workflow**. Both make the live map identical to the preview.
+Re-running an old run does not publish.
+
+The preview's banner says whether it has changes that are not live yet. Each run
+is named "Update preview" or "Publish to live", and its summary links to both versions.
 
 To undo a publish, revert the change on `main` and publish again.
 
@@ -54,8 +64,7 @@ To keep a place out of the map while working on it, turn off **Visa på kartan**
 1. Create a branch and make your changes. Test with `npm run dev`.
 2. Open a pull request against `main`.
 3. After merging, check the result at `/preview/`.
-4. Publish by running the **Deploy** workflow from the Actions tab, or with
-   **Publicera** in Pages CMS.
+4. Publish as described under Deployment.
 
 Keep code and comments in English and user-facing text in Swedish. Avoid new
 dependencies and abstractions where plain code will do.
