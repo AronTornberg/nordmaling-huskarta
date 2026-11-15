@@ -1,0 +1,18 @@
+{
+  "name": "Nordmalings klockstapel",
+  "published": true,
+  "coordinates": "63.57029, 19.50040",
+  "year": "",
+  "summary": "Vid Nordmalings kyrka, Kungsvägen 46A, Nordmaling",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Nordmalings_kyrka-Bell_tower.jpg\">Nordmalings kyrka-Bell tower.jpg</a> – foto: Håkan Svensson (Xauxa), 2010. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Nordmalings_kyrka02.JPG\">Nordmalings kyrka02.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/nordmalings-kyrka-bell-tower.jpg",
+      "caption": "Klockstapelns exteriör. Foto: Håkan Svensson (Xauxa), 2010. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/nordmalings-kyrka02.jpg",
+      "caption": "Klockstapeln. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Handelsboden / bruksmuseet",
+  "published": true,
+  "coordinates": "63.58160, 19.44334",
+  "year": "",
+  "summary": "Olofsfors bruksområde, Nordmaling",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Olofsfors_bruksmuseum_20190628_10.jpg\">Olofsfors bruksmuseum 20190628 10.jpg</a> – foto: Carin Bäckström, 2019. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Olofsfors_bruk-bensinpumpen_vid_bruksmuseet.jpg\">Olofsfors bruk-bensinpumpen vid bruksmuseet.jpg</a> – foto: Håkan Svensson (Xauxa), 2010. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/olofsfors-bruksmuseum-20190628-10.jpg",
+      "caption": "Handelsbodens fasad med Texacopumpen framför. Foto: Carin Bäckström, 2019. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/olofsfors-bruk-bensinpumpen-vid-bruksmuseet.jpg",
+      "caption": "Bensinpumpen vid bruksmuseet. Foto: Håkan Svensson (Xauxa), 2010. CC BY-SA 3.0."
+    }
+  ],
+  "color": "Brun"
+}

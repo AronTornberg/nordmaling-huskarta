@@ -1,0 +1,22 @@
+{
+  "name": "Levar hotell och lusthus",
+  "published": true,
+  "coordinates": "63.57078, 19.52480",
+  "year": "",
+  "summary": "Riksvägen 12, Nordmaling",
+  "description": "<p>Kartpunkten är en gemensam besökspunkt för hotellet och lusthuset.</p><p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Levar_Hotell_Nordmaling_01.JPG\">Levar Hotell Nordmaling 01.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Levar_Hotell_Nordmaling_08.JPG\">Levar Hotell Nordmaling 08.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Levar_Hotell_Nordmaling_09.JPG\">Levar Hotell Nordmaling 09.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/levar-hotell-nordmaling-01.jpg",
+      "caption": "Hotellbyggnaden. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/levar-hotell-nordmaling-08.jpg",
+      "caption": "Hotellbyggnaden med verandan. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/levar-hotell-nordmaling-09.jpg",
+      "caption": "En av de mindre byggnaderna vid hotellet. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    }
+  ]
+}

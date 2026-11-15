@@ -1,0 +1,24 @@
+{
+  "name": "Hyttbyggnaden",
+  "published": true,
+  "coordinates": "63.58116, 19.44555",
+  "year": "",
+  "summary": "Olofsfors bruksområde, Nordmaling",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Olofsfors_bruksmuseum_20190628_04.jpg\">Olofsfors bruksmuseum 20190628 04.jpg</a> – foto: Carin Bäckström, 2019. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Olofsfors_masugn07.jpg\">Olofsfors masugn07.jpg</a> – foto: Gudrun Norstedt, 2017. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Olofsfors_bruk-lastningsbanan.jpg\">Olofsfors bruk-lastningsbanan.jpg</a> – foto: Håkan Svensson (Xauxa), 2010. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/olofsfors-bruksmuseum-20190628-04.jpg",
+      "caption": "Hyttbyggnadens exteriör i sommarvy. Foto: Carin Bäckström, 2019. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/olofsfors-masugn07.jpg",
+      "caption": "Masugnen i vinterskrud. Foto: Gudrun Norstedt, 2017. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/olofsfors-bruk-lastningsbanan.jpg",
+      "caption": "Lastningsbanan. Foto: Håkan Svensson (Xauxa), 2010. CC BY-SA 3.0."
+    }
+  ],
+  "color": "Brun",
+  "priority": 10
+}

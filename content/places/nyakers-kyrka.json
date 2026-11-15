@@ -1,0 +1,22 @@
+{
+  "name": "Nyåkers kyrka",
+  "published": true,
+  "coordinates": "63.76239, 19.31090",
+  "year": "",
+  "summary": "Byvägen, Nyåker",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Ny%C3%A5kers_kyrka_06.JPG\">Nyåkers kyrka 06.JPG</a> – foto: Hans Lindqvist, 2015. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Ny%C3%A5kers_kyrka_01.JPG\">Nyåkers kyrka 01.JPG</a> – foto: Hans Lindqvist, 2015. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Ny%C3%A5kers_kyrka_09.JPG\">Nyåkers kyrka 09.JPG</a> – foto: Hans Lindqvist, 2015. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/nyakers-kyrka-06.jpg",
+      "caption": "Kyrkans exteriör. Foto: Hans Lindqvist, 2015. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/nyakers-kyrka-01.jpg",
+      "caption": "Tornet och entrén. Foto: Hans Lindqvist, 2015. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/nyakers-kyrka-09.jpg",
+      "caption": "Kyrkan från andra sidan. Foto: Hans Lindqvist, 2015. CC BY-SA 4.0."
+    }
+  ]
+}

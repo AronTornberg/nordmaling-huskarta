@@ -1,0 +1,23 @@
+{
+  "name": "Nordmalings kyrka",
+  "published": true,
+  "coordinates": "63.57058, 19.49995",
+  "year": "",
+  "summary": "Kungsvägen 46A, Nordmaling",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Nordmalings_kyrka01.jpg\">Nordmalings kyrka01.jpg</a> – foto: Håkan Svensson (Xauxa), 2010. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Nordmaling_Church_(1480s),_V%C3%A4sterbottens_l%C3%A4n,_Sweden.jpg\">Nordmaling Church (1480s), Västerbottens län, Sweden.jpg</a> – foto: Øystein H. Brekke, 2010. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Nordmalings_kyrka-Altar.jpg\">Nordmalings kyrka-Altar.jpg</a> – foto: Håkan Svensson (Xauxa), 2010. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/nordmalings-kyrka01.jpg",
+      "caption": "Kyrkans exteriör. Foto: Håkan Svensson (Xauxa), 2010. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/nordmaling-church-1480s-vasterbottens-lan-sweden.jpg",
+      "caption": "Kyrkan från sidan. Foto: Øystein H. Brekke, 2010. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/nordmalings-kyrka-altar.jpg",
+      "caption": "Altaret. Foto: Håkan Svensson (Xauxa), 2010. CC BY-SA 3.0."
+    }
+  ],
+  "priority": 10
+}

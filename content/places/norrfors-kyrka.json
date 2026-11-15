@@ -1,0 +1,22 @@
+{
+  "name": "Norrfors kyrka",
+  "published": true,
+  "coordinates": "63.76755, 18.99437",
+  "year": "",
+  "summary": "Idrottsvägen 4B, Norrfors",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Norrfors_kyrka_10.JPG\">Norrfors kyrka 10.JPG</a> – foto: Hans Lindqvist, 2015. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Norrfors_kyrka_02.JPG\">Norrfors kyrka 02.JPG</a> – foto: Hans Lindqvist, 2015. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Norrfors_kyrka_07.JPG\">Norrfors kyrka 07.JPG</a> – foto: Hans Lindqvist, 2015. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/norrfors-kyrka-10.jpg",
+      "caption": "Kyrkan från kyrkogården. Foto: Hans Lindqvist, 2015. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/norrfors-kyrka-02.jpg",
+      "caption": "Kyrkans entré och torn. Foto: Hans Lindqvist, 2015. CC BY-SA 4.0."
+    },
+    {
+      "image": "/media/norrfors-kyrka-07.jpg",
+      "caption": "Kyrkan från sidan. Foto: Hans Lindqvist, 2015. CC BY-SA 4.0."
+    }
+  ]
+}

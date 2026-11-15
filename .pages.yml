@@ -1,0 +1,147 @@
+# Pages CMS configuration (https://app.pagescms.org).
+# Defines the fields editors see. Field names are English (they end up in the
+# JSON files); labels and help texts are Swedish because editors read them.
+
+settings:
+  hide: true
+
+media:
+  input: media
+  output: /media
+  rename: safe
+  categories: [image]
+
+# "Publicera" button in the CMS sidebar. Editors' changes first show up in the
+# preview (…/preview/); this button copies them to the real map.
+actions:
+  - name: publish
+    label: Publicera
+    workflow: deploy.yml
+    ref: main
+    cancelable: false
+    confirm:
+      title: Publicera ändringarna?
+      message: Allt som syns i förhandsvisningen blir synligt på den riktiga kartan inom ett par minuter.
+      button: Publicera
+
+content:
+  - name: places
+    label: Platser
+    type: collection
+    path: content/places
+    filename: "{primary}.json"
+    format: json
+    view:
+      fields: [name, year, published]
+      primary: name
+      sort: [name]
+      search: [name, summary]
+      default:
+        sort: name
+        order: asc
+    fields:
+      - name: name
+        label: Namn
+        type: string
+        required: true
+      - name: published
+        label: Visa på kartan
+        description: Stäng av för att spara ett utkast som inte syns, varken i förhandsvisningen eller på kartan.
+        type: boolean
+        default: true
+      - name: coordinates
+        label: Koordinater
+        description: >-
+          Latitud och longitud, t.ex. "63.56830, 19.50390". Enklast: högerklicka på rätt
+          ställe i Google Maps och klicka på koordinaterna som visas överst, så kopieras de.
+        type: string
+        required: true
+        pattern:
+          regex: '^\s*-?\d{1,2}\.\d+\s*,\s*-?\d{1,3}\.\d+\s*$'
+          message: 'Skriv som "63.56830, 19.50390" (punkt som decimaltecken, komma mellan talen).'
+      - name: year
+        label: Byggår eller tid
+        description: Fri text, t.ex. "1762" eller "Slutet av 1400-talet". Kan lämnas tomt.
+        type: string
+      - name: summary
+        label: Kort beskrivning
+        description: En eller två meningar som visas överst.
+        type: text
+      - name: description
+        label: Beskrivning
+        type: rich-text
+        options:
+          format: html
+      - name: images
+        label: Bilder
+        description: >-
+          Ladda upp bilderna som de är – mindre versioner för mobil skapas automatiskt.
+          Den första bilden används i listan.
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Bild
+            type: image
+            required: true
+          - name: caption
+            label: Bildtext
+            description: >-
+              Beskriv vad bilden visar, gärna med årtal och fotograf. Texten läses också
+              upp för den som inte kan se bilden.
+            type: string
+
+      - name: priority
+        label: Prioritet på kartan
+        description: >-
+          När flera platser ligger tätt slås de ihop till en markering, som får utseendet
+          från platsen med högst tal här. Lämna tomt för vanlig prioritet (0).
+        type: number
+      # The colour and icon names below must match COLORS and ICONS in site/app.js.
+      - name: color
+        label: Färg på kartan
+        description: Färgen på platsens markering. Lämna tomt för blå.
+        type: select
+        options:
+          values: [Blå, Grön, Brun, Röd, Lila, Grå]
+      - name: marker_icon
+        label: Symbol på kartan
+        description: >-
+          Lämna tomt för att visa platsens första bild som markering (eller en vanlig nål
+          om platsen saknar bilder).
+        type: select
+        options:
+          values: [Hus, Kyrka, Fabrik, Skola, Butik, Lada, Minnessten, Bro, Båt, Stjärna]
+      - name: marker_image
+        label: Egen bild som markering
+        description: >-
+          Används i stället för symbolen ovan. Bilden visas liten och rund, så välj ett
+          enkelt motiv som går att känna igen i litet format.
+        type: image
+
+  - name: settings
+    label: Om kartan
+    type: file
+    path: content/settings.json
+    format: json
+    fields:
+      - name: title
+        label: Kartans namn
+        description: Visas överst i appen, i webbläsarens flik och när kartan delas.
+        type: string
+        required: true
+      - name: short_title
+        label: Kort namn
+        description: >-
+          Visas under ikonen när kartan läggs till på telefonens hemskärm. Högst ungefär
+          12 tecken, annars kortas det av.
+        type: string
+      - name: description
+        label: Beskrivning
+        description: En mening om kartan. Visas i sökmotorer och när kartan delas.
+        type: text
+      - name: about
+        label: Text under "Om"
+        type: rich-text
+        options:
+          format: html

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Colours from Nordmaling's coat of arms: blue field, silver and gold. -->
+  <rect width="512" height="512" fill="#14447a"/>
+  <!-- Gold frame: the looped square used on Nordic road signs for places of interest. -->
+  <path d="M132 160H380A28 28 0 1 0 352 132V380A28 28 0 1 0 380 352H132A28 28 0 1 0 160 380V132A28 28 0 1 0 132 160z"
+        fill="none" stroke="#e2b33c" stroke-width="14" stroke-linejoin="round"/>
+  <!-- House. The door is drawn in the background colour and reaches below the wall,
+       so it opens straight onto the background with no white edge under it. -->
+  <path d="M256 190 186 248h20v70h100v-70h20z" fill="#f5f7fa"/>
+  <rect x="241" y="274" width="30" height="50" fill="#14447a"/>
+</svg>

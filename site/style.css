@@ -1,0 +1,294 @@
+/* Mobile first: the base rules are for phones, the media query further down adapts
+   the panel for wide screens. Sizes are in rem so the user's font size setting is respected.
+
+   Colours come from Nordmaling's coat of arms: a blue field, silver, and the gold
+   chains of the Olofsfors chain forge. */
+:root {
+  --blue: #14447a;
+  --blue-dark: #0e3460;
+  --gold: #e2b33c;
+  --paper: #f5f7fa;
+  --ink: #1b2733;
+  --muted: #55626e;
+  --line: #d6dee7;
+  --banner: 0rem; /* height of the "preview" strip; set when it is shown */
+  --bar: 3rem;    /* height of the floating search bar */
+  --bar-top: calc(env(safe-area-inset-top) + var(--banner) + 0.75rem);
+  --below-bar: calc(var(--bar-top) + var(--bar) + 0.5rem);
+  --serif: Georgia, 'Times New Roman', serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font: 1rem/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  overflow: hidden;
+  overscroll-behavior: none; /* no accidental pull-to-refresh while panning the map */
+}
+body.preview { --banner: 1.75rem; }
+
+[hidden] { display: none !important; }
+
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+#content :focus-visible { outline-color: var(--blue); }
+#content h2:focus { outline: none; } /* focused by script, not by the user */
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed; z-index: 3000; top: 0.5rem; left: 0.5rem;
+  padding: 0.75rem 1rem; border-radius: 0.5rem;
+  background: #fff; color: var(--blue); font-weight: 600;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; }
+
+/* ---------- Search bar (floats on the map) ---------- */
+
+#searchbar {
+  position: fixed; z-index: 1200; top: var(--bar-top); left: 0.75rem; right: 0.75rem;
+  height: var(--bar); padding: 0 0.15rem;
+  display: flex; align-items: center;
+  background: #fff; border-radius: 999px;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.3);
+}
+#searchbar:focus-within { outline: 3px solid var(--blue); outline-offset: 1px; }
+#searchbar a {
+  flex: none; width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  display: grid; place-items: center; color: var(--blue-dark);
+}
+#searchbar a:hover { background: var(--paper); }
+#searchbar a:focus-visible { outline-color: var(--blue); outline-offset: -3px; }
+#search {
+  flex: 1; min-width: 0; height: 100%; padding: 0 0.25rem;
+  border: 0; outline: 0; background: none;
+  font: inherit; color: var(--ink);
+}
+#search::placeholder { color: var(--muted); }
+
+#preview-banner {
+  position: fixed; z-index: 1200; left: 0; right: 0; top: 0; margin: 0;
+  padding-top: env(safe-area-inset-top);
+  height: calc(var(--banner) + env(safe-area-inset-top)); line-height: var(--banner);
+  text-align: center; font-size: 0.85rem; font-weight: 700;
+  background: var(--gold); color: var(--ink);
+}
+
+/* ---------- Map ---------- */
+
+#map {
+  position: fixed; inset: 0;
+  background: #e3e8ee;
+  font: inherit;
+}
+
+.pin { background: none; border: 0; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.45)); }
+.pin.selected { z-index: 100000000 !important; } /* above every priority offset */
+.pin.selected > * { transform: scale(1.3); }
+
+/* Round marker with a photo or an icon inside, a ring in the place's colour and a small tip. */
+.badge { display: block; position: relative; width: 100%; height: 100%; transform-origin: 50% 100%; transition: transform 0.15s; }
+/* ".pin" is needed in the selector to win over Leaflet's own "width: auto" for marker images. */
+.pin .badge img, .pin .badge svg {
+  display: block; width: 44px; height: 44px; margin: 2px; object-fit: cover;
+  border-radius: 50%; border: 3px solid var(--color); background: var(--color);
+  box-shadow: 0 0 0 2px #fff;
+}
+.pin .badge svg { padding: 6px; }
+.badge::after {
+  content: ''; position: absolute; left: 50%; top: 46px; margin-left: -7px;
+  border: 7px solid transparent; border-bottom: 0; border-top: 10px solid var(--color);
+}
+/* Cluster: several places merged into one marker. Drawn like the marker of its most
+   prominent place, but without the tip and with the number of places in the corner. */
+.cluster .badge { transform-origin: center; }
+.cluster .badge::after { display: none; }
+.cluster .badge img, .cluster .badge svg { box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgb(20 30 40 / 0.28); }
+.cluster .count {
+  position: absolute; right: -5px; bottom: -5px;
+  min-width: 22px; height: 22px; padding: 0 5px; border-radius: 11px;
+  background: var(--ink); color: #fff; box-shadow: 0 0 0 2px #fff;
+  font: 700 12px/22px system-ui, sans-serif; text-align: center;
+}
+
+.pin:focus-visible { outline: 3px solid var(--blue); outline-offset: 0; border-radius: 0.5rem; }
+
+.locate {
+  width: 2.75rem; height: 2.75rem; padding: 0; display: grid; place-items: center;
+  background: #fff; color: var(--ink); cursor: pointer;
+}
+.locate:hover { background: #f1f3f5; }
+
+/* The map's own buttons sit below the search bar. */
+.leaflet-top { top: var(--below-bar); }
+
+/* Phones zoom by pinching – the +/- buttons only take up space there. */
+@media (pointer: coarse) {
+  .leaflet-control-zoom { display: none; }
+}
+
+/* ---------- Panel (bottom sheet on phones) ---------- */
+
+/* The sheet always has its full height, from below the search bar to the bottom of the
+   screen. app.js pushes it down with --sheet-offset: 0 at full height, more at half
+   height, all the way when closed or being dragged away. */
+#panel {
+  position: fixed; z-index: 1100; left: 0; right: 0; top: var(--below-bar); bottom: 0;
+  transform: translateY(var(--sheet-offset, 0px));
+  transition: transform 0.25s ease-out; /* same length as SLIDE_MS in app.js */
+  overflow: hidden;      /* at half height a vertical drag moves the sheet … */
+  touch-action: pan-x;   /* … so the browser only handles sideways swipes (the carousel) */
+  background: var(--paper);
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 -2px 16px rgb(0 0 0 / 0.25);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+/* At full height the content scrolls. */
+#panel.full { overflow-y: auto; overscroll-behavior: contain; touch-action: pan-x pan-y; }
+#panel.dragging { transition: none; } /* follow the finger exactly */
+
+#handle {
+  position: sticky; top: 0; z-index: 2;
+  display: block; width: 5rem; height: 1.5rem; margin: 0 auto -1.5rem; /* takes no room in the layout */
+  padding: 0; border: 0; background: none; cursor: pointer;
+}
+#handle::before { /* the visible bar; readable on both photos and the plain background */
+  content: ''; display: block; width: 2.5rem; height: 0.3rem; margin: 0.4rem auto 0;
+  border-radius: 999px; background: rgb(20 30 40 / 0.4); box-shadow: 0 0 0 1px rgb(255 255 255 / 0.7);
+}
+
+/* Round icon buttons that sit on top of images (close, previous/next image). */
+.round {
+  position: relative; width: 2.25rem; height: 2.25rem; padding: 0;
+  display: grid; place-items: center;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: rgb(20 30 40 / 0.62); color: #fff;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.round:hover { background: rgb(20 30 40 / 0.8); }
+.round::after { content: ''; position: absolute; inset: -0.3rem; } /* 44 px touch target */
+
+#close {
+  position: sticky; top: 0.6rem; float: right; z-index: 2;
+  margin: 0.6rem 0.6rem -2.85rem 0; /* negative margin: takes no room in the layout */
+}
+
+#content { padding: 0 1rem 1.25rem; }
+#content > :first-child:not(.gallery) { padding-top: 1.4rem; margin-top: 0; } /* clear of the handle */
+
+#content h2 { font: 600 1.5rem/1.2 var(--serif); margin: 0 0 0.5rem; color: var(--blue-dark); text-wrap: balance; }
+/* Without a gallery on top, the close button sits beside the text – keep clear of it. */
+#content:not(:has(.gallery)) :is(h2, .label) { padding-right: 3rem; }
+#content h3 { font: 600 1.15rem/1.3 var(--serif); margin: 1.5rem 0 0.25rem; color: var(--blue-dark); }
+#content p { margin: 0 0 0.75rem; }
+#content a { color: var(--blue); }
+
+.label { color: var(--muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin: 0.9rem 0 0.1rem !important; }
+.lead { font-size: 1.07rem; }
+.text ul, .text ol { padding-left: 1.4rem; margin: 0 0 0.75rem; }
+.text blockquote { margin: 0 0 0.75rem; padding-left: 0.75rem; border-left: 3px solid var(--gold); color: var(--muted); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem !important; }
+.button {
+  font: 600 0.95rem/1.2 system-ui, sans-serif; cursor: pointer;
+  min-height: 2.75rem; padding: 0 1.1rem; border-radius: 999px; text-decoration: none;
+  display: inline-flex; align-items: center;
+  border: 1.5px solid var(--blue); background: none; color: var(--blue) !important;
+}
+.button:hover:not(:disabled) { background: var(--blue); color: #fff !important; }
+.button:disabled { opacity: 0.7; cursor: default; }
+
+/* ---------- Images ---------- */
+
+.gallery { position: relative; margin: 0 -1rem; container-type: inline-size; }
+.strip {
+  display: flex; gap: 0.25rem;
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.strip::-webkit-scrollbar { display: none; }
+.gallery figure { flex: 0 0 100%; margin: 0; scroll-snap-align: start; }
+.gallery.multiple figure { flex-basis: 88%; }
+.gallery.multiple figure:last-child { scroll-snap-align: end; }
+.gallery figure button { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.gallery figure button:focus-visible { outline-offset: -3px; }
+
+/* Previous/next arrows, vertically centred on the image (which is 88 % wide, 3:2). */
+.arrow { position: absolute; top: calc(88cqw / 3 - 1.125rem); }
+.arrow.prev { left: 0.6rem; transform: scaleX(-1); }
+.arrow.next { right: 0.6rem; }
+@media (hover: none) {
+  .arrow { display: none; } /* touch screens swipe instead */
+}
+.gallery img {
+  display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover;
+  background: var(--line);
+}
+.gallery figcaption { font-size: 0.85rem; color: var(--muted); padding: 0.4rem 1rem 0; }
+
+#fullscreen {
+  border: 0; padding: 0; margin: 0; background: #000;
+  width: 100vw; height: 100dvh; max-width: none; max-height: none;
+}
+#fullscreen::backdrop { background: #000; }
+#fullscreen img {
+  width: 100%; height: 100%; object-fit: contain; cursor: zoom-out;
+  /* the stand-in shown while loading (set in app.js) is placed exactly like the image */
+  background: center / contain no-repeat;
+}
+#fullscreen button { position: absolute; top: calc(0.75rem + env(safe-area-inset-top)); right: 0.75rem; }
+
+/* ---------- List ---------- */
+
+
+.list { list-style: none; margin: 0; padding: 0; }
+.list li + li { border-top: 1px solid var(--line); }
+.list a { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; text-decoration: none; color: var(--ink) !important; }
+.list img, .list .no-image { flex: none; width: 3.5rem; height: 3.5rem; border-radius: 0.5rem; object-fit: cover; }
+.list strong { display: block; font-family: var(--serif); font-size: 1.07rem; }
+.list small { color: var(--muted); font-size: 0.85rem; }
+.list .empty { padding: 1rem 0; color: var(--muted); }
+
+/* ---------- Toast ---------- */
+
+#toast {
+  position: fixed; z-index: 2000; left: 50%; transform: translateX(-50%);
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  display: flex; align-items: center; gap: 0.75rem;
+  width: max-content; max-width: calc(100vw - 1.5rem); padding: 0.6rem 1rem;
+  background: var(--ink); color: #fff; border-radius: 0.6rem;
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.35); font-size: 0.95rem;
+}
+#toast button {
+  font: 600 0.95rem/1 system-ui, sans-serif; cursor: pointer; flex: none;
+  min-height: 2.5rem; padding: 0 0.75rem;
+  background: #fff; color: var(--ink); border: 0; border-radius: 0.4rem;
+}
+
+/* ---------- Wide screens: the panel becomes a card on the left ---------- */
+
+@media (min-width: 45rem) {
+  #searchbar { right: auto; width: 25rem; }
+  /* The search bar is on the left there, so the map's buttons can stay at the top. */
+  .leaflet-top { top: calc(env(safe-area-inset-top) + var(--banner)); }
+  /* A fixed card: no sliding, no dragging, always scrollable. */
+  #panel, #panel.full {
+    top: var(--below-bar); left: 0.75rem; bottom: 0.75rem; right: auto;
+    width: 25rem;
+    transform: none; transition: none; overflow-y: auto; touch-action: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 16px rgb(0 0 0 / 0.25);
+  }
+  #handle { display: none; }
+  #content > :first-child:not(.gallery) { padding-top: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

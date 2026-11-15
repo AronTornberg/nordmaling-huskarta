@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <!-- %TITLE% and %DESCRIPTION% are filled in by build.mjs from content/settings.json. -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>%TITLE%</title>
+  <meta name="description" content="%DESCRIPTION%">
+  <meta property="og:title" content="%TITLE%">
+  <meta property="og:description" content="%DESCRIPTION%">
+  <meta property="og:image" content="icon-512.png">
+  <meta name="theme-color" content="#14447a">
+  <!-- Start fetching the content and connecting to the map tile server right away,
+       instead of waiting until app.js has been downloaded and has asked for them. -->
+  <link rel="preload" href="data.json" as="fetch" crossorigin>
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="leaflet.css">
+  <link rel="stylesheet" href="markercluster.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#lista">Hoppa till listan över platser</a>
+
+  <!-- Not shown: the map fills the screen. The name is still the page's main heading
+       for screen readers, and is shown under "Om". -->
+  <h1 id="title" class="visually-hidden">%TITLE%</h1>
+
+  <!-- Floats on top of the map. Typing lists matching places in the panel. -->
+  <div id="searchbar" role="search">
+    <a href="#lista" aria-label="Visa alla platser"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M4 6h.01M4 12h.01M4 18h.01" stroke-width="3"/></svg></a>
+    <input id="search" type="search" placeholder="Sök plats …" aria-label="Sök plats" autocomplete="off" enterkeyhint="search">
+    <a href="#om" aria-label="Om kartan"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5h.01" stroke-width="3"/></svg></a>
+  </div>
+  <p id="preview-banner" hidden>Förhandsvisning – inte publicerad än</p>
+
+  <main id="map" aria-label="Karta med historiska platser"></main>
+
+  <aside id="panel" aria-label="Information" hidden>
+    <!-- Phones only: the bar to drag the sheet by. Also a button that toggles half/full height. -->
+    <button id="handle" type="button" aria-label="Visa mer"></button>
+    <button id="close" class="round" type="button" aria-label="Stäng"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="content"></div>
+  </aside>
+
+  <dialog id="fullscreen" aria-label="Bild i helskärm">
+    <img alt="">
+    <button class="round" type="button" aria-label="Stäng bilden"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </dialog>
+  <div id="toast" role="status" hidden></div>
+
+  <script src="leaflet.js"></script>
+  <script src="markercluster.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

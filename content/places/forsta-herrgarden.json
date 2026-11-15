@@ -1,0 +1,15 @@
+{
+  "name": "Första herrgården / gamla karaktärsbyggnaden",
+  "published": true,
+  "coordinates": "63.58236, 19.44718",
+  "year": "1764",
+  "summary": "Olofsfors bruksområde, Nordmaling",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Olofsfors_herrgard03.jpg\">Olofsfors herrgard03.jpg</a> – foto: Gudrun Norstedt, 2017. <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/olofsfors-herrgard03.jpg",
+      "caption": "Första herrgården är den vänstra vita flygeln, delvis skymd av träd. Foto: Gudrun Norstedt, 2017. CC BY-SA 4.0."
+    }
+  ],
+  "color": "Brun"
+}

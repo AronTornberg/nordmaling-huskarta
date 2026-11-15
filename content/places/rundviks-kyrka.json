@@ -1,0 +1,22 @@
+{
+  "name": "Rundviks kyrka",
+  "published": true,
+  "coordinates": "63.53851, 19.44119",
+  "year": "",
+  "summary": "Bergsvägen 30, Rundvik",
+  "description": "<p><strong>Bildkällor</strong></p><ul><li><a href=\"https://commons.wikimedia.org/wiki/File:Rundviks_kyrka_01.JPG\">Rundviks kyrka 01.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Rundviks_kyrka_03.JPG\">Rundviks kyrka 03.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li><li><a href=\"https://commons.wikimedia.org/wiki/File:Rundviks_kyrka_09.JPG\">Rundviks kyrka 09.JPG</a> – foto: Hans Lindqvist, 2013. <a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC BY-SA 3.0</a>.</li></ul>",
+  "images": [
+    {
+      "image": "/media/rundviks-kyrka-01.jpg",
+      "caption": "Kyrka och klockstapel från norr. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/rundviks-kyrka-03.jpg",
+      "caption": "Kyrkans entré. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    },
+    {
+      "image": "/media/rundviks-kyrka-09.jpg",
+      "caption": "Klockstapeln. Foto: Hans Lindqvist, 2013. CC BY-SA 3.0."
+    }
+  ]
+}

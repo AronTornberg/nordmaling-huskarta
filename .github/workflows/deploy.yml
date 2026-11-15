@@ -1,0 +1,108 @@
+# Builds and deploys the map to GitHub Pages. One deployment holds two sites:
+#
+#   /           the live map
+#   /preview/   the preview (staging): always the latest commit on main
+#
+# - A push to main (e.g. someone saves in Pages CMS) rebuilds the preview only.
+#   The live map is rebuilt from the commit it was already on.
+# - Running the workflow manually – the "Publicera" button in Pages CMS does
+#   exactly that – makes the latest commit on main live.
+#
+# Which commit is live is read from version.json on the deployed site, so no
+# extra branch or stored state is needed.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Sent by Pages CMS (not used)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      IMAGE_CACHE: ${{ github.workspace }}/.cache/img
+    steps:
+      - name: Check out main (the preview)
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          path: preview
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Decide which commit should be live
+        id: live
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          main=$(git -C preview rev-parse HEAD)
+          if [ "$GITHUB_EVENT_NAME" = workflow_dispatch ]; then
+            sha=$main                                   # publish
+          else
+            code=$(curl -sL -o version.json -w '%{http_code}' "$SITE_URL/version.json?run=$GITHUB_RUN_ID")
+            case "$code" in
+              200) sha=$(jq -r '.commit // empty' version.json) ;;
+              404) sha=$main ;;                         # very first deploy
+              *)   echo "Could not read the live version (HTTP $code)"; exit 1 ;;
+            esac
+          fi
+          echo "sha=${sha:-$main}" >> "$GITHUB_OUTPUT"
+
+      - name: Check out the live commit
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ steps.live.outputs.sha }}
+          path: live
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: preview/package-lock.json
+
+      # Resized images are kept between runs so only new images need processing.
+      - uses: actions/cache@v4
+        with:
+          path: .cache/img
+          key: images-${{ github.run_id }}
+          restore-keys: images-
+
+      - name: Build the live site
+        working-directory: live
+        env:
+          COMMIT: ${{ steps.live.outputs.sha }}
+        run: npm ci && npm run build
+
+      - name: Build the preview
+        working-directory: preview
+        env:
+          PREVIEW: 1
+        run: npm ci && npm run build
+
+      - run: mv preview/_site live/_site/preview
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: live/_site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
